@@ -25,6 +25,7 @@
     <p>Select the CSV file exported from YouTube Music to enrich it with BPM data.</p>
 
     <input type="file" id="csvFile" accept=".csv" />
+    <div id="status" style="margin-top:1rem; font-weight:bold;"></div>
     <br />
     <button onclick="uploadFile()">Upload and Process</button>
 
@@ -43,7 +44,9 @@
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("https://stream-to-bpm-backend-verified-render.onrender.com/upload", {
+      document.getElementById("status").innerText = "Processing...";
+
+      const response = await fetch("https://stream-to-bpm-backend-verified-render-1.onrender.com/upload", {
         method: "POST",
         body: formData
       });
@@ -54,6 +57,7 @@
       link.href = url;
       link.download = "library_with_bpm.csv";
       link.style.display = "block";
+      document.getElementById("status").innerText = "✅ Processed successfully! Ready to download."
       link.textContent = "Download Enriched CSV";
     }
   </script>
